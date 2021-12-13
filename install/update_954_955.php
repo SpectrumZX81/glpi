@@ -82,6 +82,12 @@ function update954to955() {
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci";
         $DB->queryOrDie($query, "Adding table glpi_projecttasklinks");
    }
+   else {
+      $query = "ALTER TABLE `glpi_projecttasklinks`
+         CHANGE COLUMN `source_id` `projecttasks_id_source` INT(11) NOT NULL,
+         CHANGE COLUMN `target_id` `projecttasks_id_target` INT(11) NOT NULL;";
+         $DB->queryOrDie($query, "Changing glpi_projecttasklinks field names");
+   }
 
    // ************ Keep it at the end **************
    $migration->executeMigration();
